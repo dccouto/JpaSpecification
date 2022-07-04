@@ -29,12 +29,15 @@ public class FilterPokemon {
                 Predicate predicateName = criteriaBuilder.equal(fieldName, this.getName());
                 predicates.add(predicateName);
             }
+            this.getTypes()
+                    .stream()
+                    .filter(type -> StringUtils.hasText(type.getType()))
+                    .forEach(type -> {
+                        Path<String> fieldName = root.join(Pokemon_.TYPES).get(Type_.DESCRIPTION);
+                        Predicate predicateName = criteriaBuilder.equal(fieldName, type.getType());
+                        predicates.add(predicateName);
+                    });
 
-            this.getTypes().stream().forEach(type -> {
-                Path<String> fieldName = root.join(Pokemon_.TYPES).get(Type_.DESCRIPTION);
-                Predicate predicateName = criteriaBuilder.equal(fieldName, type.getType());
-                predicates.add(predicateName);
-            });
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
