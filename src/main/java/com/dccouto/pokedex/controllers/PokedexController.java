@@ -1,6 +1,7 @@
 package com.dccouto.pokedex.controllers;
 
 import com.dccouto.pokedex.controllers.dto.FilterPokemon;
+import com.dccouto.pokedex.dto.PokemonDto;
 import com.dccouto.pokedex.models.Pokemon;
 import com.dccouto.pokedex.services.PodedexService;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,11 @@ public class PokedexController {
 
 
     @GetMapping
-    public Page<Pokemon> findAll(Pageable pageable){
+    public Page<PokemonDto> findAll(Pageable pageable){
         return podedexService.findAll(pageable);
     }
     @PostMapping("/filter")
-    public ResponseEntity<Page<Pokemon>> findAllByFilter(@RequestBody FilterPokemon filter, Pageable pageable){
+    public ResponseEntity<Page<PokemonDto>> findAllByFilter(@RequestBody FilterPokemon filter, Pageable pageable){
         return ResponseEntity.ok(podedexService.findAllByFilter(filter ,pageable));
     }
 }

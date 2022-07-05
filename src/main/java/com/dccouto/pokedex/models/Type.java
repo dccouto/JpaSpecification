@@ -1,5 +1,6 @@
 package com.dccouto.pokedex.models;
 
+import com.dccouto.pokedex.dto.TypeDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,4 +30,7 @@ public class Type {
             inverseJoinColumns = @JoinColumn(name = "pokemon_id"))
     private List<Pokemon> pokemons;
 
+    public TypeDto convertToDto() {
+        return new TypeDto(id, description);
+    }
 }
